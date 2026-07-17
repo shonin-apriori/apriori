@@ -3,82 +3,149 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ポータルサイト</title>
+<title>アプリオリ 開発ポータル</title>
+
+<!-- 丸みを帯びた可愛らしいフォントを読み込み -->
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-/* フォントを丸みのあるものに指定し、優しい印象に */
+/* ＝ 全体の設定 ＝ */
 body {
-    font-family: 'Nunito', 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'YuRounded', sans-serif;
-    background: #fff8f0; /* 温かみのあるクリーム色の背景 */
-    color: #5c4a40; /* 文字は真っ黒ではなく柔らかいブラウン */
+    font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'YuRounded', sans-serif;
+    color: #5c4a40; /* 優しいブラウン */
     text-align: center;
-    padding: 20px 15px; /* スマホ画面に合わせた余白 */
+    padding: 40px 15px 100px; /* スマホ画面に合わせた余白（下は木を配置するため広め） */
     margin: 0;
+    
+    /* りんごの断面図のパターンを背景に設定 */
+    background-color: #fff9f0;
+    background-image: url("data:image/svg+xml,%3Csvg width='150' height='150' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.08'%3E%3Cpath d='M60 100 C35 100, 20 80, 20 50 C20 20, 45 20, 60 40 C75 20, 100 20, 100 50 C100 80, 85 100, 60 100 Z' fill='%23fff' stroke='%23e63946' stroke-width='6'/%3E%3Cpath d='M60 45 C53 55, 53 70, 60 80 C67 70, 67 55, 60 45 Z' fill='%23ffecb3'/%3E%3Cellipse cx='54' cy='62' rx='2.5' ry='6' fill='%235c4a40' transform='rotate(-15 54 62)'/%3E%3Cellipse cx='66' cy='62' rx='2.5' ry='6' fill='%235c4a40' transform='rotate(15 66 62)'/%3E%3Cpath d='M60 40 Q55 25, 70 15' stroke='%235c4a40' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed; /* スクロールしても背景を固定 */
 }
 
+/* ＝ タイトル ＝ */
 h1 {
-    margin: 20px 0 30px;
-    font-size: 1.6rem;
-    color: #e76f51; /* タイトルは明るく温かいオレンジ系 */
+    margin: 0 0 40px;
+    font-size: 1.8rem;
+    color: #e63946; /* りんごの皮の鮮やかな赤 */
+    font-weight: 700;
+    display: inline-block;
+    position: relative;
+    padding: 0 10px;
+}
+/* タイトルに葉っぱのアイコンをちょこんと乗せる */
+h1::before {
+    content: "";
+    position: absolute;
+    top: -25px;
+    right: -10px;
+    width: 35px;
+    height: 35px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238ab17d'%3E%3Cpath d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 7,15.25 10.67,19.34C13,17 19.33,13 17,8Z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-/* 今後数が増えても綺麗に並ぶよう、Gridレイアウトに変更 */
+/* ＝ レイアウト（増えても自動で並ぶGrid） ＝ */
 .container {
     display: grid;
-    grid-template-columns: 1fr; /* スマホ（基本）は1列で縦に並ぶ */
-    gap: 20px;
+    grid-template-columns: 1fr; /* スマホは1列に縦並び */
+    gap: 25px;
     max-width: 900px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1; /* 背景の木より前に出す */
 }
-
-/* 画面幅が広い（タブレットやPC）場合は自動で横に並べる設定 */
+/* タブレット・PCなど幅が広い画面なら横並びに */
 @media (min-width: 600px) {
     .container {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 }
 
+/* ＝ カード（りんごをイメージした配色と形） ＝ */
 .card {
-    background: #ffffff;
-    border-radius: 20px; /* 角を大きめに丸くしてほのぼの感を出す */
+    background: #fffdf5; /* 果肉のクリーム色 */
+    border-radius: 35px; /* りんごっぽく丸っこく */
     padding: 30px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* ふんわりとした影 */
-    border: 2px solid #ffeedd; /* カードの縁に優しい色をつける */
+    box-shadow: 0 6px 15px rgba(230, 57, 70, 0.1);
+    border: 3px solid #e63946; /* りんごの皮の赤枠 */
+    position: relative;
     transition: .3s;
+    overflow: hidden;
+}
+
+/* カードの左上に葉っぱのアクセント */
+.card::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    width: 35px;
+    height: 35px;
+    background-color: #8ab17d;
+    border-radius: 50% 0 50% 50%;
+    transform: rotate(45deg);
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(231, 111, 81, 0.15); /* 浮き上がった時も優しい色の影 */
+    box-shadow: 0 10px 25px rgba(230, 57, 70, 0.2);
 }
 
 .card h2 {
-    margin-top: 0;
-    font-size: 1.3rem;
-    color: #f4a261;
+    margin-top: 5px;
+    font-size: 1.4rem;
+    color: #d62828; /* 少し深めの赤 */
 }
 
 .card p {
     font-size: 0.95rem;
     color: #8c7a6b;
     margin-bottom: 25px;
+    font-weight: bold;
 }
 
-/* ボタンを押しやすく丸いデザインに */
+/* ＝ 開くボタン（押しやすいカプセル型） ＝ */
 .btn {
-    display: block; /* スマホでタップしやすいように横幅を広げる */
-    padding: 15px 20px;
-    background: #8ab17d; /* 自然で優しいグリーン */
+    display: block;
+    padding: 18px 20px;
+    background: #e63946; /* りんごの赤 */
     color: white;
     text-decoration: none;
-    border-radius: 30px; /* カプセル型に丸くする */
+    border-radius: 50px; 
     font-weight: bold;
-    transition: .3s;
-    letter-spacing: 1px;
+    transition: .2s;
+    letter-spacing: 2px;
+    box-shadow: 0 5px 0 #bc202b; /* ボタンを立体的にして押しやすく */
 }
 
 .btn:hover {
-    background: #749867;
+    background: #f0525f;
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #bc202b;
+}
+
+/* スマホでタップした時の動き */
+.btn:active {
+    transform: translateY(5px);
+    box-shadow: none;
+}
+
+/* ＝ 画面下部の「りんごが実る木」の背景 ＝ */
+.apple-tree-decor {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    /* CSSの波形と丸（りんご）を組み合わせたSVG背景 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 150' preserveAspectRatio='xMidYMax slice'%3E%3Cpath d='M0 150 Q150 80 300 120 T600 70 T1000 110 L1000 150 Z' fill='%23a3c995' opacity='0.6'/%3E%3Cpath d='M0 150 Q250 110 500 140 T900 100 T1000 140 L1000 150 Z' fill='%238ab17d' opacity='0.8'/%3E%3Ccircle cx='150' cy='115' r='10' fill='%23e63946'/%3E%3Ccircle cx='350' cy='135' r='12' fill='%23e63946'/%3E%3Ccircle cx='700' cy='105' r='9' fill='%23e63946'/%3E%3Ccircle cx='850' cy='125' r='11' fill='%23e63946'/%3E%3Ccircle cx='80' cy='135' r='8' fill='%23e63946'/%3E%3Ccircle cx='550' cy='115' r='13' fill='%23e63946'/%3E%3Ccircle cx='950' cy='135' r='8' fill='%23e63946'/%3E%3C/svg%3E");
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none; /* タップの邪魔にならないようにする */
 }
 </style>
 </head>
@@ -113,7 +180,19 @@ h1 {
         </a>
     </div>
 
+    <!-- 今後ここに追加していく場合は以下の形式で追加してください -->
+    <!--
+    <div class="card">
+        <h2>新しいプロジェクト</h2>
+        <p>プロジェクト4</p>
+        <a href="URLを記述" class="btn" target="_blank">開く</a>
+    </div>
+    -->
+    
 </div>
+
+<!-- 下部の木の装飾 -->
+<div class="apple-tree-decor"></div>
 
 </body>
 </html>
