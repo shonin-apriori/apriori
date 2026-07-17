@@ -6,45 +6,79 @@
 <title>ポータルサイト</title>
 
 <style>
-body{
-    font-family:sans-serif;
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:50px;
+/* フォントを丸みのあるものに指定し、優しい印象に */
+body {
+    font-family: 'Nunito', 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'YuRounded', sans-serif;
+    background: #fff8f0; /* 温かみのあるクリーム色の背景 */
+    color: #5c4a40; /* 文字は真っ黒ではなく柔らかいブラウン */
+    text-align: center;
+    padding: 20px 15px; /* スマホ画面に合わせた余白 */
+    margin: 0;
 }
 
-h1{
-    margin-bottom:40px;
+h1 {
+    margin: 20px 0 30px;
+    font-size: 1.6rem;
+    color: #e76f51; /* タイトルは明るく温かいオレンジ系 */
 }
 
-.container{
-    display:flex;
-    gap:20px;
-    justify-content:center;
-    flex-wrap:wrap;
+/* 今後数が増えても綺麗に並ぶよう、Gridレイアウトに変更 */
+.container {
+    display: grid;
+    grid-template-columns: 1fr; /* スマホ（基本）は1列で縦に並ぶ */
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.card{
-    width:250px;
-    background:#1f2937;
-    border-radius:15px;
-    padding:30px;
-    transition:.3s;
+/* 画面幅が広い（タブレットやPC）場合は自動で横に並べる設定 */
+@media (min-width: 600px) {
+    .container {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
 }
 
-.card:hover{
-    transform:translateY(-5px);
+.card {
+    background: #ffffff;
+    border-radius: 20px; /* 角を大きめに丸くしてほのぼの感を出す */
+    padding: 30px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* ふんわりとした影 */
+    border: 2px solid #ffeedd; /* カードの縁に優しい色をつける */
+    transition: .3s;
 }
 
-.btn{
-    display:inline-block;
-    margin-top:15px;
-    padding:10px 20px;
-    background:#2563eb;
-    color:white;
-    text-decoration:none;
-    border-radius:8px;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(231, 111, 81, 0.15); /* 浮き上がった時も優しい色の影 */
+}
+
+.card h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #f4a261;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #8c7a6b;
+    margin-bottom: 25px;
+}
+
+/* ボタンを押しやすく丸いデザインに */
+.btn {
+    display: block; /* スマホでタップしやすいように横幅を広げる */
+    padding: 15px 20px;
+    background: #8ab17d; /* 自然で優しいグリーン */
+    color: white;
+    text-decoration: none;
+    border-radius: 30px; /* カプセル型に丸くする */
+    font-weight: bold;
+    transition: .3s;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    background: #749867;
 }
 </style>
 </head>
