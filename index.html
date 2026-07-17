@@ -10,30 +10,33 @@
 
 <style>
 /* ＝ 全体の設定 ＝ */
+html {
+    scroll-behavior: smooth; /* ページ内リンクでフワッとスクロールさせる */
+}
+
 body {
     font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'YuRounded', sans-serif;
     color: #5c4a40; /* 優しいブラウン */
     text-align: center;
-    padding: 40px 15px 100px; /* スマホ画面に合わせた余白（下は木を配置するため広め） */
+    padding: 40px 15px 100px; /* スマホ画面に合わせた余白 */
     margin: 0;
     
     /* りんごの断面図のパターンを背景に設定 */
     background-color: #fff9f0;
     background-image: url("data:image/svg+xml,%3Csvg width='150' height='150' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.08'%3E%3Cpath d='M60 100 C35 100, 20 80, 20 50 C20 20, 45 20, 60 40 C75 20, 100 20, 100 50 C100 80, 85 100, 60 100 Z' fill='%23fff' stroke='%23e63946' stroke-width='6'/%3E%3Cpath d='M60 45 C53 55, 53 70, 60 80 C67 70, 67 55, 60 45 Z' fill='%23ffecb3'/%3E%3Cellipse cx='54' cy='62' rx='2.5' ry='6' fill='%235c4a40' transform='rotate(-15 54 62)'/%3E%3Cellipse cx='66' cy='62' rx='2.5' ry='6' fill='%235c4a40' transform='rotate(15 66 62)'/%3E%3Cpath d='M60 40 Q55 25, 70 15' stroke='%235c4a40' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E");
-    background-attachment: fixed; /* スクロールしても背景を固定 */
+    background-attachment: fixed;
 }
 
 /* ＝ タイトル ＝ */
 h1 {
-    margin: 0 0 40px;
+    margin: 0 0 30px;
     font-size: 1.8rem;
-    color: #e63946; /* りんごの皮の鮮やかな赤 */
+    color: #e63946; 
     font-weight: 700;
     display: inline-block;
     position: relative;
     padding: 0 10px;
 }
-/* タイトルに葉っぱのアイコンをちょこんと乗せる */
 h1::before {
     content: "";
     position: absolute;
@@ -46,36 +49,84 @@ h1::before {
     background-repeat: no-repeat;
 }
 
+/* ＝ 目次ナビゲーション ＝ */
+.toc {
+    display: flex;
+    flex-wrap: wrap; /* スマホで入り切らない時は自動で折り返す */
+    gap: 10px;
+    justify-content: center;
+    margin: 0 auto 40px;
+    max-width: 800px;
+    position: relative;
+    z-index: 1;
+}
+
+.toc a {
+    background: #8ab17d; /* 葉っぱのグリーン */
+    color: white;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 4px 0 #6e9463;
+    transition: .2s;
+}
+
+.toc a:hover {
+    background: #7ca36f;
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #6e9463;
+}
+
+.toc a:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+/* ＝ ジャンルの見出し ＝ */
+.genre-section {
+    margin-bottom: 60px; /* ジャンル同士の間に広めの余白 */
+    position: relative;
+    z-index: 1;
+}
+
+.genre-title {
+    color: #e63946;
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 3px dashed #f4a261; /* 温かみのあるオレンジの点線 */
+    display: inline-block;
+    scroll-margin-top: 30px; /* リンクで飛んだ時、画面上に少し余白を残す */
+}
+
 /* ＝ レイアウト（増えても自動で並ぶGrid） ＝ */
 .container {
     display: grid;
-    grid-template-columns: 1fr; /* スマホは1列に縦並び */
+    grid-template-columns: 1fr;
     gap: 25px;
     max-width: 900px;
     margin: 0 auto;
-    position: relative;
-    z-index: 1; /* 背景の木より前に出す */
 }
-/* タブレット・PCなど幅が広い画面なら横並びに */
 @media (min-width: 600px) {
     .container {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 }
 
-/* ＝ カード（りんごをイメージした配色と形） ＝ */
+/* ＝ カード（りんごイメージ） ＝ */
 .card {
-    background: #fffdf5; /* 果肉のクリーム色 */
-    border-radius: 35px; /* りんごっぽく丸っこく */
+    background: #fffdf5;
+    border-radius: 35px;
     padding: 30px 20px;
     box-shadow: 0 6px 15px rgba(230, 57, 70, 0.1);
-    border: 3px solid #e63946; /* りんごの皮の赤枠 */
+    border: 3px solid #e63946;
     position: relative;
     transition: .3s;
     overflow: hidden;
 }
 
-/* カードの左上に葉っぱのアクセント */
 .card::before {
     content: "";
     position: absolute;
@@ -93,10 +144,10 @@ h1::before {
     box-shadow: 0 10px 25px rgba(230, 57, 70, 0.2);
 }
 
-.card h2 {
-    margin-top: 5px;
-    font-size: 1.4rem;
-    color: #d62828; /* 少し深めの赤 */
+.card h3 {
+    margin: 5px 0 10px;
+    font-size: 1.3rem;
+    color: #d62828;
 }
 
 .card p {
@@ -106,18 +157,18 @@ h1::before {
     font-weight: bold;
 }
 
-/* ＝ 開くボタン（押しやすいカプセル型） ＝ */
+/* ＝ 開くボタン（カプセル型） ＝ */
 .btn {
     display: block;
     padding: 18px 20px;
-    background: #e63946; /* りんごの赤 */
+    background: #e63946;
     color: white;
     text-decoration: none;
     border-radius: 50px; 
     font-weight: bold;
     transition: .2s;
     letter-spacing: 2px;
-    box-shadow: 0 5px 0 #bc202b; /* ボタンを立体的にして押しやすく */
+    box-shadow: 0 5px 0 #bc202b;
 }
 
 .btn:hover {
@@ -126,7 +177,6 @@ h1::before {
     box-shadow: 0 3px 0 #bc202b;
 }
 
-/* スマホでタップした時の動き */
 .btn:active {
     transform: translateY(5px);
     box-shadow: none;
@@ -139,13 +189,12 @@ h1::before {
     left: 0;
     width: 100%;
     height: 150px;
-    /* CSSの波形と丸（りんご）を組み合わせたSVG背景 */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 150' preserveAspectRatio='xMidYMax slice'%3E%3Cpath d='M0 150 Q150 80 300 120 T600 70 T1000 110 L1000 150 Z' fill='%23a3c995' opacity='0.6'/%3E%3Cpath d='M0 150 Q250 110 500 140 T900 100 T1000 140 L1000 150 Z' fill='%238ab17d' opacity='0.8'/%3E%3Ccircle cx='150' cy='115' r='10' fill='%23e63946'/%3E%3Ccircle cx='350' cy='135' r='12' fill='%23e63946'/%3E%3Ccircle cx='700' cy='105' r='9' fill='%23e63946'/%3E%3Ccircle cx='850' cy='125' r='11' fill='%23e63946'/%3E%3Ccircle cx='80' cy='135' r='8' fill='%23e63946'/%3E%3Ccircle cx='550' cy='115' r='13' fill='%23e63946'/%3E%3Ccircle cx='950' cy='135' r='8' fill='%23e63946'/%3E%3C/svg%3E");
     background-size: cover;
     background-position: bottom;
     background-repeat: no-repeat;
     z-index: 0;
-    pointer-events: none; /* タップの邪魔にならないようにする */
+    pointer-events: none;
 }
 </style>
 </head>
@@ -154,41 +203,147 @@ h1::before {
 
 <h1>アプリオリ 開発ポータル</h1>
 
-<div class="container">
+<!-- 目次 -->
+<nav class="toc">
+    <a href="#genre1">商会イベント</a>
+    <a href="#genre2">パズル・ミニゲーム</a>
+    <a href="#genre3">運・美女イベント</a>
+    <a href="#genre4">家来イベント</a>
+</nav>
 
-    <div class="card">
-        <h2>棋士との遭遇</h2>
-        <p>未実装</p>
-        <a href="https://shonin-apriori.github.io/kishitonosouguu_notfound/" class="btn" target="_blank">
-            開く
-        </a>
+<!-- ▼▼ ジャンル1 ▼▼ -->
+<div class="genre-section">
+    <h2 id="genre1" class="genre-title">商会イベント</h2>
+    <div class="container">
+        <div class="card">
+            <h3>偉大航路</h3>
+            <p>プロジェクト2</p>
+            <a href="https://shonin-apriori.github.io/idaikouro-a/" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>鹿追隋唐</h3>
+            <p>プロジェクト2</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>海上争覇</h3>
+            <p>プロジェクト2</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>五雄争覇</h3>
+            <p>プロジェクト2</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>楚漢戦争</h3>
+            <p>プロジェクト2</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>街角迎春</h3>
+            <p>プロジェクト2</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>馬さん走れ</h3>
+            <p>プロジェクト2</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>始皇帝陵-始皇帝-</h3>
+            <p>プロジェクト2</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>天下一鏢局</h3>
+            <p>プロジェクト2</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
     </div>
+</div>
 
-    <div class="card">
-        <h2>偉大航路</h2>
-        <p>未実装</p>
-        <a href="https://shonin-apriori.github.io/idaikouro_notfound/" class="btn" target="_blank">
-            開く
-        </a>
+<!-- ▼▼ ジャンル2 ▼▼ -->
+<div class="genre-section">
+    <h2 id="genre2" class="genre-title">パズル・ミニゲーム</h2>
+    <div class="container">
+        <div class="card">
+            <h3>牧場点呼</h3>
+            <p>プロジェクト3</p>
+            <a href="https://shonin-apriori.github.io/bokujotenko-a/" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>岸との遭遇</h3>
+            <p>プロジェクト1</p>
+            <a href="https://shonin-apriori.github.io/kishitonosouguu-a/" class="btn" target="_blank">開く</a>
+        </div>
     </div>
+</div>
 
-    <div class="card">
-        <h2>牧場点呼</h2>
-        <p>未実装</p>
-        <a href="https://shonin-apriori.github.io/bokujotenko_notfound/" class="btn" target="_blank">
-            開く
-        </a>
+<!-- ▼▼ ジャンル3 ▼▼ -->
+<div class="genre-section">
+    <h2 id="genre3" class="genre-title">運・美女イベント</h2>
+    <div class="container">
+        <!-- 枠だけ用意（後で追加できます） -->
+        <div class="card">
+            <h3>新しいプロジェクト</h3>
+            <p>プロジェクト4</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
     </div>
+</div>
 
-    <!-- 今後ここに追加していく場合は以下の形式で追加してください -->
-    <!--
-    <div class="card">
-        <h2>新しいプロジェクト</h2>
-        <p>プロジェクト4</p>
-        <a href="URLを記述" class="btn" target="_blank">開く</a>
+<!-- ▼▼ ジャンル4 ▼▼ -->
+<div class="genre-section">
+    <h2 id="genre4" class="genre-title">家来イベント</h2>
+    <div class="container">
+        <!-- 枠だけ用意（後で追加できます） -->
+        <div class="card">
+            <h3>木蘭戦記-花木蘭-</h3>
+            <p>プロジェクト5</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>中華一番</h3>
+            <p>プロジェクト5</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>懐仙歌-李白-</h3>
+            <p>プロジェクト5</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>江南美人-五艶鳳魅-</h3>
+            <p>プロジェクト5</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>愛弟子育成記-小柒</h3>
+            <p>プロジェクト5</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>封神演義-楊戩-</h3>
+            <p>プロジェクト5</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>宋の相棒-八郎-</h3>
+            <p>プロジェクト5</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>海神島-舞-</h3>
+            <p>プロジェクト5</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
+        <div class="card">
+            <h3>黒風砦-瓢箪仙人-</h3>
+            <p>プロジェクト5</p>
+            <a href="#" class="btn" target="_blank">開く</a>
+        </div>
     </div>
-    -->
-    
 </div>
 
 <!-- 下部の木の装飾 -->
